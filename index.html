@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Netflix Clone - Login & Signup</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="overlay"></div>
+
+    <nav class="navbar">
+        <a href="#" class="logo"> <i class="fas fa-film"></i>NETFLIX </a>
+        <div>
+            <select class="language-selector">
+          <option>English</option>
+          <option>العربية</option>
+        </select>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div id="login-form" class="form-container active">
+            <h1 class="form-title">Log in</h1>
+            <form>
+                <div class="input-group">
+                    <input type="email" id="login-email" placeholder=" " required />
+                    <label class="email" for="login-email">Email</label>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="login-password" placeholder=" " required />
+                    <label class="pass" for="login-password">Password</label>
+                    <span class="password-toggle" id="login-password-toggle">
+              <i class="fa-solid fa-eye"></i>
+            </span>
+                </div>
+                <button type="submit" class="btn">Log in</button>
+                <div class="form-help">
+                    <div class="remember">
+                        <input type="checkbox" id="remember" />
+                        <label for="remember">Remember me</label>
+                    </div>
+                    <a href="#">Need help?</a>
+                </div>
+            </form>
+            <div class="new-to-netflix">
+                New to Netflix?
+                <a href="#" class="form-switch-btn" id="signup" data-target="signup-form">Sign up now</a
+          >
+        </div>
+      </div>
+
+      <div id="signup-form" class="form-container">
+        <h1 class="form-title">Create Account</h1>
+        <form>
+          <div class="input-group">
+            <input type="text" id="signup-name" placeholder=" " required />
+            <label class="fullname" for="signup-name">Full Name</label>
+          </div>
+          <div class="input-group">
+            <input type="email" id="signup-email" placeholder=" " required />
+            <label class="email" for="signup-email">Email</label>
+          </div>
+          <div class="input-group">
+            <input
+              type="password"
+              id="signup-password"
+              placeholder=" "
+              required
+            />
+            <label class="pass" for="signup-password">Password</label>
+            <span class="password-toggle" id="signup-password-toggle">
+              <i class="fa-solid fa-eye"></i>
+            </span>
+          </div>
+          <div class="input-group">
+            <input
+              type="password"
+              id="signup-confirm"
+              placeholder=" "
+              required
+            />
+            <label class="passconf" for="signup-confirm">Confirm Password</label>
+          </div>
+          <button type="submit" class="btn">Sign Up</button>
+        </form>
+        <div class="form-switch">
+          Already have an account?
+          <button class="form-switch-btn" data-target="login-form">
+            Log in
+          </button>
+        </div>
+      </div>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>

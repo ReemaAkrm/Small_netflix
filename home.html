@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styleh.css" />
+
+    <title>Netflix</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <video id="splash-video" autoplay muted>
+        <source src="img/Netflixlogo.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div id="main-content" style="display: none;">
+        <nav class="navbar" id="navbar">
+            <a href="#" class="logo" id="logo"><i class="fas fa-film"></i>NETFLIX</a>
+            <div>
+                <select class="language-selector" id="languageSelector">
+                    <option value="en">English</option>
+                    <option value="ar">العربية</option>
+                </select>
+            </div>
+        </nav>
+
+        <div class="gallery-wrapper">
+            <button class="scroll-btn scroll-left">&#10094;</button>
+            <div class="gallery" id="galleryContainer"></div>
+            <button class="scroll-btn scroll-right">&#10095;</button>
+        </div>
+
+    </div>
+    <script>
+        const items = [{
+            title: "The Fighter",
+            image: "img/fighter.jpg",
+            description_en: "The Fighter is a true story about boxer Micky Ward and his brother Dicky. Micky struggles to succeed in boxing while dealing with family drama and Dicky’s troubled past. With determination and support, he fights his way to the top. It's a powerful film about family, struggle, and redemption.",
+            description_ar: "فيلم The Fighter يروي قصة حقيقية عن الملاكم ميكي وارد وأخيه ديكي. يعاني ميكي لتحقيق النجاح في عالم الملاكمة بينما يواجه مشاكل عائلية وماضي ديكي المضطرب. وبفضل عزيمته ودعم من حوله، يشق طريقه نحو القمة. إنه فيلم قوي يتناول العائلة، والنضال، والخلاص."
+        }, {
+            title: "I Am Mother",
+            image: "img/iammother.jpg",
+            description_en: "I Am Mother is a sci-fi thriller about a teenage girl raised in a bunker by a robot called Mother after a global extinction event. Their bond is tested when a mysterious stranger arrives, revealing hidden truths about the outside world and Mother's real intentions. The film explores themes of trust, humanity, and artificial intelligence.",
+            description_ar: "فيلم I Am Mother هو فيلم إثارة خيال علمي عن فتاة مراهقة تربت في ملجأ تحت الأرض على يد روبوت يُدعى 'الأم' بعد حدوث انقراض عالمي. تتعرض علاقتهما للاختبار عندما تصل امرأة غامضة تكشف حقائق خفية عن العالم الخارجي والنوايا الحقيقية للأم. يستكشف الفيلم مواضيع الثقة والإنسانية والذكاء الاصطناعي."
+        }, {
+            title: "Top Gun",
+            image: "img/topgun.jpg",
+            description_en: "Top Gun is an action-packed film about elite Navy pilot Pete 'Maverick' Mitchell. He trains at the Top Gun fighter school, where he competes with the best pilots and struggles with the legacy of his father. The film mixes thrilling aerial combat, intense rivalry, and personal growth.",
+            description_ar: "Top Gun هو فيلم مليء بالإثارة حول الطيار النخبوي في البحرية الأمريكية بيت 'مافريك' ميتشل. يتدرب في مدرسة Top Gun للطيارين المقاتلين، حيث ينافس أفضل الطيارين ويصارع الإرث الذي تركه والده. يجمع الفيلم بين القتال الجوي المثير، والتنافس الحاد، والنمو الشخصي."
+        }, {
+            title: "The Creator",
+            image: "img/Creator.jpg",
+            description_en: "The Creator is a sci-fi action film set in a future where humans and artificial intelligence are at war. The story follows a soldier tasked with hunting down a mysterious AI weapon, but his mission leads him to question everything he knows about humanity, technology, and survival.",
+            description_ar: "The Creator هو فيلم أكشن وخيال علمي تدور أحداثه في مستقبل يعيش فيه البشر في صراع مع الذكاء الاصطناعي. تتبع القصة جنديًا مكلفًا بمطاردة سلاح ذكاء صناعي غامض، ولكن هذه المهمة تجعله يشكك في كل ما يعرفه عن الإنسانية والتكنولوجيا والبقاء."
+        }, {
+            title: "King Frankie",
+            image: "img/king.jpg",
+            description_en: "King Frankie is a drama about Frankie Burke, a Dublin taxi driver who must confront painful memories and guilt after his father's death. When an unexpected visitor arrives, Frankie's past resurfaces, forcing him on a journey of forgiveness and self-acceptance.",
+            description_ar: "King Frankie هو فيلم درامي يدور حول فرانكي بيرك، سائق سيارة أجرة من دبلن، الذي يضطر لمواجهة ذكريات مؤلمة وشعور بالذنب بعد وفاة والده. عندما يظهر زائر غير متوقع، يعود ماضي فرانكي إلى السطح، مما يجبره على خوض رحلة نحو التسامح وتقبل الذات."
+        }, {
+            title: "Now You See Me",
+            image: "img/noeyouseeme.jpg",
+            description_en: "Now You See Me is a fast-paced thriller about four magicians who steal money during their shows and give it to the audience. While the FBI and Interpol try to catch them, the magicians stay ahead with secrets and clever tricks.",
+            description_ar: "Now You See Me هو فيلم إثارة سريع الإيقاع عن أربعة سحرة يسرقون الأموال خلال عروضهم ويقدمونها للجمهور. بينما تحاول المباحث الفيدرالية والإنتربول الإمساك بهم، يظل السحرة دائمًا متقدمين بخطوة بفضل أسرارهم وخدعهم الذكية."
+        }, {
+            title: "The Departed",
+            image: "img/thedeparted.jpg",
+            description_en: "The Departed is a tense crime thriller about an undercover cop and a mob mole inside the police. As both sides try to uncover each other, a dangerous game of deception unfolds.",
+            description_ar: "The Departed هو فيلم جريمة وإثارة مشوق عن شرطي سري ومتسلل من عصابة المافيا داخل الشرطة. بينما يحاول كل طرف كشف الآخر، تبدأ لعبة خطيرة من الخداع والمواجهة."
+        }, {
+            title: "Django Unchained",
+            image: "img/django.jpg",
+            description_en: "Django Unchained is a Western drama directed by Quentin Tarantino. It follows Django, a freed slave, who teams up with a bounty hunter named Dr. King Schultz to rescue his wife from a brutal plantation owner. The film combines action, revenge, and dark humor while exploring themes of slavery, freedom, and justice in the Antebellum South.",
+            description_ar: "Django Unchained هو فيلم دراما وويسترن من إخراج كوينتن تارانتينو. يتبع القصة Django، عبد محرر، يتعاون مع صائد جوائز يُدعى الدكتور كينغ شولتز لإنقاذ زوجته من مالك مزرعة وحشي. يجمع الفيلم بين الأكشن، والانتقام، والفكاهة السوداء، بينما يناقش قضايا العبودية والحرية والعدالة في الجنوب الأمريكي قبل الحرب الأهلية."
+        }, {
+            title: "The Gray Man",
+            image: "img/thegrayman.jpg",
+            description_en: "The Gray Man is an action thriller about a former CIA operative named Court Gentry, also known as Sierra Six. After discovering dark secrets about the agency, he becomes a target of a ruthless former colleague. The movie follows his intense fight for survival across the globe, full of high-stakes chases, espionage, and explosive action.",
+            description_ar: "The Gray Man هو فيلم إثارة وأكشن يدور حول عميل سابق في وكالة الاستخبارات المركزية يُدعى كورت جينتري، المعروف أيضًا باسم سييرا 6. بعد اكتشافه لأسرار مظلمة عن الوكالة، يصبح هدفًا لزميل سابق لا يرحم. يتتبع الفيلم صراعه للبقاء في مواجهة مطاردات خطيرة، وتجسس، وأحداث مليئة بالتفجيرات حول العالم."
+        }];
+
+        const gallery = document.getElementById("galleryContainer");
+        const video = document.getElementById("splash-video");
+        const content = document.getElementById("main-content");
+        const languageSelector = document.querySelector(".language-selector");
+
+        function renderCards(language = "en") {
+            gallery.innerHTML = "";
+
+            items.forEach(item => {
+                const card = document.createElement("div");
+                card.className = "card";
+
+                const inner = document.createElement("div");
+                inner.className = "card-inner";
+
+                const front = document.createElement("div");
+                front.className = "card-front";
+
+                const img = document.createElement("img");
+                img.src = item.image;
+
+                const title = document.createElement("h3");
+                title.textContent = item.title;
+                title.className = "title-desktop d-none d-md-block";
+
+                const mobileTitle = document.createElement("h3");
+                mobileTitle.textContent = item.title;
+                mobileTitle.className = "title-mobile d-block d-md-none";
+
+                front.appendChild(img);
+                front.appendChild(title);
+
+                const back = document.createElement("div");
+                back.className = "card-back";
+
+                const desc = document.createElement("p");
+                desc.textContent = language === "ar" ? item.description_ar : item.description_en;
+
+                back.appendChild(desc);
+
+                inner.appendChild(front);
+                inner.appendChild(back);
+                card.appendChild(inner);
+                card.appendChild(mobileTitle);
+                gallery.appendChild(card);
+            });
+        }
+
+        video.onended = function() {
+            video.style.display = "none";
+            content.style.display = "block";
+            renderCards("en");
+        };
+
+        languageSelector.addEventListener("change", function() {
+            const selectedLang = this.value;
+            renderCards(selectedLang);
+
+            const navbar = document.getElementById("navbar");
+            const langContainer = document.getElementById("lang-container");
+
+            if (selectedLang === "ar") {
+                document.body.dir = "rtl";
+                navbar.style.justifyContent = "space-between";
+                navbar.style.order = 2;
+            } else {
+                document.body.dir = "ltr";
+                navbar.style.justifyContent = "space-between";
+                navbar.style.order = 1;
+            }
+
+        });
+
+
+        document.querySelector(".scroll-left").addEventListener("click", () => {
+            gallery.scrollBy({
+                left: -300,
+                behavior: "smooth"
+            });
+        });
+
+        document.querySelector(".scroll-right").addEventListener("click", () => {
+            gallery.scrollBy({
+                left: 300,
+                behavior: "smooth"
+            });
+        });
+    </script>
+
+</body>
+
+</html>
